@@ -1,26 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { addSkill, updateName, asyncUpdateUser } from './stores/user';
 
-function App() {
+const App = () => {
+  const { name, skill } = useSelector((state) => state.userInfo);
+  const dispatch = useDispatch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>ようこそ、{name}</h1>
+      <h3>あなたのスキル</h3>
+      <ul>
+        {skill.map((el) => {
+          return <li key={el}>{el}</li>;
+        })}
+      </ul>
+      <button
+        onClick={() => {
+          dispatch(asyncUpdateUser('まいど'));
+        }}>
+        更新
+      </button>
+    </>
   );
-}
+};
 
 export default App;
